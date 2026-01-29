@@ -1,4 +1,4 @@
-const API_BASE = "http://YOUR-SERVER-IP:8000";
+const API_BASE = "http://127.0.0.1:8000";
 
 document.getElementById("sendBtn").addEventListener("click", async () => {
   const input = document.getElementById("userInput").value;
