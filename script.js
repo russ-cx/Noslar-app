@@ -1,8 +1,21 @@
-const API_BASE = "http://127.0.0.1:8000";
+const API_BASE = "http://YOUR-SERVER-IP:8000";
 
-document.getElementById("sendBtn").addEventListener("click", () => {
+document.getElementById("sendBtn").addEventListener("click", async () => {
   const input = document.getElementById("userInput").value;
+  const output = document.getElementById("outputBox");
 
-  document.getElementById("outputBox").textContent =
-    "You typed:\n\n" + input + "\n\n(Backend not connected yet)";
+  output.textContent = "Sending request...";
+
+  try {
+    const response = await fetch(`${API_BASE}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ prompt: input })
+    });
+
+    const data = await response.json();
+    output.textContent = data.reply;
+  } catch (err) {
+    output.textContent = "Error connecting to backend:\n" + err;
+  }
 });
